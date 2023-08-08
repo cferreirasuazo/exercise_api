@@ -1,15 +1,20 @@
 from django.test import TestCase
 from logs.models import Log
+from django.contrib.auth.models import User
 
 
 class LogModelTestCase(TestCase):
     def setUp(self):
-        Log.objects.create(description="Test log entry",
+        self.user = User.objects.create_superuser(
+            username="cristhianferreira", password="Lolo2020")
+
+        Log.objects.create(user=self.user, description="Test log entry",
                            duration=60, date="2023-08-05")
 
     def test_create_log(self):
         # Create a new Log instance
         log_entry = Log.objects.create(
+            user=self.user,
             description="New log entry",
             duration=120,
             date="2023-08-06"

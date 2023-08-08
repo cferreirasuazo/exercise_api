@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -11,6 +12,7 @@ class Log(models.Model):
     description = models.TextField()
     duration = models.IntegerField()
     date = models.DateField(auto_now_add=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.description} - {self.date}"
