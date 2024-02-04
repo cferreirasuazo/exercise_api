@@ -7,9 +7,9 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      
   web:
     build: .
-    restart: always
     command: wait-for-it db:5432 -- bash -c "pip install -r requirements.txt && python manage.py migrate --noinput && python manage.py runserver 0:8000"
 
     volumes:
@@ -20,5 +20,6 @@ services:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - DJANGO_SETTINGS_MODULE=exerciselogs.settings.dev
     depends_on:
       - db
